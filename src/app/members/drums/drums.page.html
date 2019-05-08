@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>DRUMS</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <canvas id="renderCanvas"></canvas>
+    <!--
+  <ion-list lines="none">
+    <ion-item *ngFor="let drum of drumdata; let i= index;trackBy: trackByDrum;">
+      <ion-card>
+       
+        <ion-card-header no-padding class="ion-text-center drum-header">DRUM {{drum.NOME}} </ion-card-header>
+        <div class="item-content" style="width: 100%;padding: 0!important;">
+          <ion-grid>
+            <ion-row >
+              <ion-col size="5">
+                <div style="height: 15px;">
+                  <div   [ngClass]="drum.RUNNING!=1 ? 'hidden':' ' && drum.DIRECTION==1 ? 'cc blink ':'ccw blink'" >
+                    </div>
+                  </div>
+                <img src='assets/images/drum.svg'>
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+              </ion-col>
+              <ion-col size="1">
+                <div id="semaforo" style = "border: 2px solid; width: 24px;">
+                  <div style="background: red;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.RED!=1 ? 'hidden-background':'show'"></div>
+                  <div style="background: yellow;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.YELLOW!=1 ? 'hidden-background':'show'"></div>
+                  <div style="background: green;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.GREEN!=1 ? 'hidden-background':'show'"></div>
+                </div>
+              </ion-col>
+              <ion-col style="padding-left:10px;" class="ion-text-end" size="3">
+                <ion-row style="padding: 2px;">
+                {{drum.ID_ODP}}
+                </ion-row>
+                <ion-row style="padding: 2px;">
+                  {{drum.PASSO}}
+                </ion-row>
+                <ion-row style="padding: 2px;">
+                  {{drum.TEMP}}
+                </ion-row>
+                <ion-row style="padding: 2px;">
+                 {{drum.TEMP_SET}}
+                </ion-row>
+                <ion-row style="padding: 2px;">
+                  {{drum.RPM}}
+                </ion-row>
+                <ion-row style="padding: 2px;">
+                    <div style="background: rgb(4, 238, 4);height: 14px; width: 14px;margin-top: 1px;border-radius: 50%;border: 2px solid darkgrey" [ngClass]= "drum.RUNNING==1?'':'hidden-background'"></div>
+                </ion-row>
+                <ion-row style="padding: 2px;">
+                    <div style="background: red;height: 14px; width: 14px;margin-top: 2px;border-radius: 50%;border: 1px solid darkgrey" [ngClass]= "drum.HEATING==0?'':'hidden-background'"></div></ion-row>
+              </ion-col>
+                <ion-col  class="ion-text-start" size="3">
+                  <ion-row style="padding: 2px;">
+                    ODP 
+                  </ion-row>
+                  <ion-row style="padding: 2px;">
+                    PASSO
+                  </ion-row>
+                  <ion-row style="padding: 2px;">
+                    TEMP
+                  </ion-row>
+                  <ion-row style="padding: 2px;">
+                    SET
+                  </ion-row>
+                  <ion-row style="padding: 2px;">
+                    RPM
+                  </ion-row>
+                  <ion-row style="padding: 2px;">
+                    RUN
+                  </ion-row>
+                  <ion-row style="padding: 2px;">
+                    HEATING
+                  </ion-row>
+               
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+
+
+      </ion-card>
+    </ion-item>
+
+  </ion-list>
+-->
+</ion-content>

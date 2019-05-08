@@ -1,12 +1,33 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
-  { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' }
+    {path: '', redirectTo: 'login', pathMatch: 'full'},
+    {path: 'login', loadChildren: './public/login/login.module#LoginPageModule'},
+    {path: 'members/recipe', canActivate: [AuthGuard], loadChildren: './members/recipe/tabs/tabs.module#TabsPageModule'},
+    // { path: '',  canActivate: [AuthGuard], loadChildren: './menu/menu.module#MenuPageModule'},
+
+    {path: 'storage', loadChildren: './members/storage/storage.module#StoragePageModule'},
+    {path: 'drums', loadChildren: './members/drums/drums.module#DrumsPageModule'},
+    {path: 'modal', loadChildren: './modals/modal/modal.module#ModalPageModule'},
+    {path: 'members/tank', loadChildren: './members/tank/tank.module#TankPageModule'},
+    {path: 'members/tank/:id', loadChildren: './members/tank/tank.module#TankPageModule'},
+    {path: 'carico-modal', loadChildren: './modals/carico-modal/carico-modal.module#CaricoModalPageModule'},
+    {path: 'alarms', loadChildren: './public/alarms/alarms.module#AlarmsPageModule'},
+    {path: 'carico', loadChildren: './members/carico/carico.module#CaricoPageModule'},
+    {path: 'members/checkproduct/:drum/:step/:odp', loadChildren: './members/checkproduct/checkproduct.module#CheckproductPageModule'},
+    {path: 'members/control/:idodpfasi/:idazione/:numerico', loadChildren: './members/recipe/control/control.module#ControlPageModule'},
+    {
+        path: 'members/controlslist/:idodpfasi/:idazionegroup',
+        loadChildren: './members/recipe/controlslist/controlslist.module#ControlslistPageModule'
+    },
+    {path: '', loadChildren: './menu/menu.module#MenuPageModule'},
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { /*preloadingStrategy: PreloadAllModules, enableTracing: true*/}), CommonModule
   ],
   exports: [RouterModule]
 })

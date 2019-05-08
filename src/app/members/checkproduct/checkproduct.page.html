@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CHECK PRODUCT</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-grid padding>
+      <ion-row  no-padding style="TEXT-ALIGN: center;border: 2px solid;">
+        <ion-col><b>DRUM</b> <br>{{drum}}</ion-col>
+        <ion-col><b>ODP</b> <br>{{odp}}</ion-col>
+        <ion-col><b>STEP</b> <br>{{step}}</ion-col>
+      </ion-row>
+        <ion-row [style.display]="displayDrum" class="custom-row" padding>
+          <ion-col class="title">DRUM OK</ion-col>
+<!--<ion-col>{{drum}}</ion-col>-->
+        </ion-row>
+        <ion-row  [style.display]="displayProdotto" class="custom-row" padding>
+            <ion-col class="title">CONTENITORE OK</ion-col>
+           <!-- <ion-col>{{product}}</ion-col>-->
+        </ion-row>
+        <ion-row class="spacing"></ion-row>
+        <ion-row justify-content-center align-items-center>
+            <ion-spinner [style.display]="displaySpinner" name="lines"> </ion-spinner>
+        </ion-row>
+      </ion-grid>
+    
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="warning" (touchstart)="fabDown()" (touchend)="fabUp()">
+          <ion-icon name="barcode"></ion-icon>
+        </ion-fab-button>
+    
+    
+      </ion-fab>
+</ion-content>

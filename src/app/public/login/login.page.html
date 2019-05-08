@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>LOGIN</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding class="align">
+<ion-grid>
+    <ion-row>
+      <ion-col class="align">
+        <form  [formGroup]="loginForm" (ngSubmit)="login()" style="width:100%;">
+            <ion-item no-padding>
+              <ion-label style="width:80px;text-align: right;">ID</ion-label>
+              <ion-input type="text" paleceholder="PIPPO" [(ngModel)]="user.id"  formControlName="id"></ion-input>
+            </ion-item>
+            <ion-item no-padding>
+              <ion-label style="width:80px;text-align: right;">Password</ion-label>
+              <ion-input [(ngModel)]="user.password" formControlName="password"></ion-input>
+            </ion-item>
+        <ion-button type="submit" expand="block">Login</ion-button>
+     </form>
+       
+      </ion-col>
+        </ion-row>
+</ion-grid>
+<ion-fab vertical="center" horizontal="center" slot="fixed" >
+    <ion-spinner [style.display]="displaySpinner" name="lines"></ion-spinner>
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+      <ion-fab-button color="warning" (touchstart)="fabDown()" (touchend)="fabUp()">    
+        <ion-icon name="barcode"></ion-icon>
+      </ion-fab-button>
+    
+     
+    </ion-fab>
+  </ion-content>

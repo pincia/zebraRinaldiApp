@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+         <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+         </ion-buttons>
+      <ion-title>
+       SCAN {{code}}
+      </ion-title>
+        <ion-buttons slot="end">
+          <ion-icon name="close" (click)='dismiss()'></ion-icon>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content padding >
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+            <div class="preloader-scan">
+                <ul>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  
+                  <div class="diode">
+                    <div class="laser"></div>
+                  </div>
+                </ul>
+              </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="custom-footer" >
+    <ion-button class="mdl-button" (click)='scan()'>SCAN</ion-button>
+  </ion-toolbar>
+</ion-footer>

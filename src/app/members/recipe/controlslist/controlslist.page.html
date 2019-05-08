@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
+    <ion-title>CONTROLS LIST</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list lines="none">
+    <ion-item>
+      <ion-grid no-padding no-margin>
+        <ion-row margin no-padding style="height: 40px;" *ngFor="let control of controlslist; let i= index" align-items-center justify-content-cente>
+          <ion-card (click)="goToControl(event,control)" class="control" style= "display: table;text-align: center;" (click)="goToControl($event,control)">
+ 
+                  <div style ="display: flex;vertical-align: middle;display: table-cell;">{{control.NOME}}  <ion-icon *ngIf= "control.CHECKED"color="green" name="md-checkmark-circle-outline"></ion-icon></div>
+              
+             </ion-card>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+  <ion-fab vertical="center" horizontal="center" slot="fixed">
+    <ion-spinner [style.display]="displaySpinner" name="lines"></ion-spinner>
+  </ion-fab>
+</ion-content>

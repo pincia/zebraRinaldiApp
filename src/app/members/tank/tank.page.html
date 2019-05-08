@@ -1,0 +1,199 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="'/storage'">
+
+        <ion-icon slot="end" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>TANK {{tank.NOME}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content no-padding>
+    <ion-grid no-padding style="height:100%;">
+      <ion-row no-padding style="height:100%;" [style.display]="displayTank">
+        <ion-col no-padding style="height:100%;" size="12">
+            <div  style="display: flex; justify-content: center;flex-wrap: wrap;">
+          <ion-card no-padding style="width: 100%;">
+            <ion-card-header no-padding class=" ion-text-center tank-header">
+              <ion-grid no-padding>
+                <ion-row no-padding>
+                  <ion-col size="7" style="height: 46px;">
+                    <div *ngIf="abilitazione"   style="border: 2px solid #6f6e6e;border-radius: 5px;">
+                        CARICO<br>ABILITATO
+                    </div>
+                 
+                  </ion-col>
+
+                  <ion-col size="5" >
+                      <div  *ngIf="abilitazione" style="display: table; height: 25px;height: 100%;width: 100%; overflow: hidden;">
+                          <div [ngClass]="status_class" style="height: 100%; display: table-cell;width: 100%; vertical-align: middle;">
+                            <div >
+                                {{status}}
+                            </div>
+                          </div>
+                        </div>
+       
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-card-header>
+            <div class="flex-div" >
+              <svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="270px" height="340px" 
+                viewBox="25.5 0 270 370" enable-background="new 25.5 0 270 370" xml:space="preserve">
+                <defs>
+                  <linearGradient id="Gradient1">
+                    <stop class="stop1" offset="0%"></stop>
+                    <stop class="stop2" offset="50%"></stop>
+                    <stop class="stop3" offset="100%"></stop>
+                  </linearGradient>
+                  <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+                    <stop id="off1" offset="0%" stop-color="black" stop-opacity="0"></stop>
+                    <stop [attr.offset]="(100-(percentage+5)) +'%'" offset="75%" stop-color="black" stop-opacity="0"></stop>
+                    <stop [attr.offset]="(100-percentage) +'%'" offset="80%" stop-color="green"></stop>
+                  </linearGradient>
+                  <style type="text/css">
+                    #rect1 {
+                      fill: url(#Gradient2);
+                    }
+
+                    .stop1 {
+                      stop-color: red;
+                    }
+
+                    .stop2 {
+                      stop-color: rgb(0, 129, 0);
+                      stop-opacity: 0;
+                    }
+
+                    .stop3 {
+                      stop-color: blue;
+                    }
+                  </style>
+                </defs>
+
+                <g>
+                  <rect x="43.283" y="96.299" fill="#BCBEC0" stroke="#000000" stroke-miterlimit="10"
+                    fill="url(#Gradient2)" width="137.853" height="184.208" style="fill: url(#Gradient2);"></rect>
+
+                  <ellipse cx="112.21" cy="280.506" rx="68.926" ry="8.381" />
+                  <ellipse fill="#E6E7E8" stroke="#000000" stroke-miterlimit="10" cx="112.21" cy="96.299" rx="68.926"
+                    ry="8.379" />
+                </g>
+                <g>
+                  <ellipse fill="none" stroke="#000000" stroke-miterlimit="10" cx="210.425" cy="344.265" rx="23.23"
+                    ry="23.735" />
+                  <polygon [ngClass]="riciclo_class" fill="#A7A9AC" stroke="#000000" stroke-miterlimit="10"
+                    points="200.175,365.215 233.656,344.266 200.175,323.316 	" />
+                </g>
+                <path [ngClass]="riciclo_class" fill="#D1D3D4" stroke="#000000" stroke-width="0.7087"
+                  stroke-miterlimit="10" d="M162.919,92.859h3.889v-8.065
+	c0-3.542,2.809-6.415,6.277-6.415h64.441c3.467,0,6.277,2.873,6.277,6.415v104.874h3.889V83.915c0-5.414-4.295-9.803-9.596-9.803
+	h-65.582c-5.299,0-9.592,4.39-9.592,9.803v8.945" />
+                <polygon fill="#D1D3D4" stroke="#000000" stroke-width="0.7087" stroke-miterlimit="10" points="283.833,344.781 267.476,334.773 
+	268.066,341.836 246.605,341.836 246.605,345.811 268.066,345.811 267.044,355.514 " />
+                <polygon [ngClass]="riciclo_class" fill="#D1D3D4" stroke="#000000" stroke-width="0.7087"
+                  stroke-miterlimit="10" points="247.294,341.502 247.402,341.502 
+	247.402,215.537 243.515,215.537 243.515,341.502 233.656,341.502 233.656,345.475 247.294,345.475 " />
+                <rect [ngClass]="riciclo_class" x="154.463" y="342.352" fill="#D1D3D4" stroke="#000000"
+                  stroke-width="0.5669" stroke-miterlimit="10" width="32.736" height="4.268" />
+                <path [ngClass]="riciclo_class" fill="#D1D3D4" stroke="#000000" stroke-width="0.5669"
+                  stroke-miterlimit="10" d="M122.435,342.352
+	c-3.469,0-6.279-2.873-6.279-6.414l0.06-47.176h-3.889l-0.063,48.055c0,5.414,4.295,9.803,9.594,9.803h20.282v-4.268H122.435
+	L122.435,342.352z" />
+                <g>
+                  <polygon [ngClass]="riciclo_class" fill="#A7A9AC" stroke="#000000" stroke-miterlimit="10"
+                    points="253.839,215.842 246.019,202.77 238.152,215.873 	" />
+                  <polygon [ngClass]="riciclo_class" fill="#A7A9AC" stroke="#000000" stroke-miterlimit="10"
+                    points="238.197,189.695 246.019,202.77 253.882,189.67 	" />
+                  <g>
+                    <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="246.888" y1="202.791" x2="232.726"
+                      y2="202.756" />
+                    <path fill="#D1D3D4" stroke="#000000" stroke-miterlimit="10" d="M232.976,211.283c-4.604,0-8.334-3.811-8.334-8.516
+			c0-4.701,3.73-8.512,8.334-8.512" />
+                    <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="232.976" y1="211.283" x2="232.976"
+                      y2="194.256" />
+                  </g>
+                </g>
+                <g>
+                  <polygon [ngClass]="riciclo_class" fill="#A7A9AC" stroke="#000000" stroke-miterlimit="10"
+                    points="135.259,351.918 148.052,343.928 135.232,335.889 	" />
+                  <polygon [ngClass]="riciclo_class" fill="#A7A9AC" stroke="#000000" stroke-miterlimit="10"
+                    points="160.849,335.932 148.052,343.924 160.874,351.963 	" />
+                  <g>
+                    <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="148.031" y1="344.814" x2="148.068"
+                      y2="330.34" />
+                    <path fill="none" stroke="#000000" stroke-miterlimit="10" d="M139.719,330.598c0-4.703,3.73-8.514,8.332-8.514
+			c4.604,0,8.333,3.811,8.333,8.514" />
+                    <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="139.719" y1="330.598" x2="156.384"
+                      y2="330.598" />
+                  </g>
+                </g>
+                <g>
+                  <rect x="110.159" y="86.858" width="3.029" height="162.796" />
+                  <g>
+                    <rect [ngClass]="mixing_class" x="96.02" y="69.831" fill="#1C75BC" stroke="#000000"
+                      stroke-miterlimit="10" width="31.308" height="17.027" />
+                    <rect [ngClass]="mixing_class" x="96.02" y="36.808" fill="#1C75BC" stroke="#000000"
+                      stroke-miterlimit="10" width="31.308" height="27.864" />
+                    <polygon [ngClass]="mixing_class" fill="#1C75BC" stroke="#000000" stroke-miterlimit="10" points="122.292,31.131 101.056,31.131 99.05,36.808 
+			124.298,36.808 		" />
+                    <rect [ngClass]="mixing_class" x="100.312" y="64.67" fill="#1C75BC" stroke="#000000"
+                      stroke-miterlimit="10" width="22.723" height="5.159" />
+                  </g>
+                </g>
+                <g>
+                  <ellipse fill="none" stroke="#000000" stroke-miterlimit="10" cx="96.304" cy="248.773" rx="16.159"
+                    ry="5.934" />
+                  <ellipse fill="none" stroke="#000000" stroke-miterlimit="10" cx="127.612" cy="248.773" rx="16.159"
+                    ry="5.934" />
+                </g>
+                <path [ngClass]="filling_class" fill="#D1D3D4" stroke="#000000" stroke-width="0.7087"
+                  stroke-miterlimit="10" d="M64.979,46.616h3.889V7.486
+	c-1.296-0.015-2.593-0.031-3.889-0.049V46.616z" />
+                <g>
+                  <polygon [ngClass]="filling_class" fill="#A7A9AC" stroke="#000000" stroke-miterlimit="10"
+                    points="75.56,72.788 67.739,59.716 59.872,72.817 	" />
+                  <polygon [ngClass]="filling_class" fill="#A7A9AC" stroke="#000000" stroke-miterlimit="10"
+                    points="59.917,46.642 67.739,59.716 75.603,46.616 	" />
+                  <g>
+                    <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="68.608" y1="59.737" x2="54.445"
+                      y2="59.702" />
+                    <path fill="#D1D3D4" stroke="#000000" stroke-miterlimit="10" d="M54.697,68.229c-4.604,0-8.335-3.811-8.335-8.514
+			c0-4.703,3.729-8.514,8.335-8.514" />
+                    <line fill="none" stroke="#000000" stroke-miterlimit="10" x1="54.697" y1="68.229" x2="54.697"
+                      y2="51.203" />
+                  </g>
+                </g>
+                <path [ngClass]="filling_class" fill="#D1D3D4" stroke="#000000" stroke-width="0.7087"
+                  stroke-miterlimit="10" d="M65.816,97.81h3.889V72.849
+  c-1.296-0.01-2.592-0.021-3.889-0.032V97.81z" />
+<rect x="75.56" y="160.5" fill="#FFFFFF" stroke="#000000" stroke-miterlimit="10" width="72.471" height="35.72"/>
+<text transform="matrix(1 0 0 1 96.02 185)" font-family="monospace" font-size="21">{{percentage}}%</text>
+
+              </svg>
+
+
+              <i class="fa fa-arrow-down" aria-hidden="true"></i>
+
+            </div>
+   
+          </ion-card>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  <ion-fab vertical="center" horizontal="center" slot="fixed" >
+    <ion-spinner [style.display]="displaySpinner" name="lines"></ion-spinner>
+  </ion-fab>
+  <ion-fab *ngIf="abilitazione" vertical="bottom" horizontal="end" slot="fixed" >
+      <ion-fab-button color="warning" (touchstart)="fabDown()" (touchend)="fabUp()">    
+        <ion-icon name="barcode"></ion-icon>
+      </ion-fab-button>
+    
+     
+    </ion-fab>
+</ion-content>

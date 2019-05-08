@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>CARICO PRODOTTO </ion-title>
+    <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding >
+    <ion-grid padding>
+        <ion-row [style.display]="displayDeposito" class="custom-row" padding>
+          <ion-col class="title">DEPOSITO</ion-col>
+          <ion-col>{{tank}}</ion-col>
+        </ion-row>
+        <ion-row  [style.display]="displayProdotto" class="custom-row" padding>
+            <ion-col class="title">PRODOTTO</ion-col>
+            <ion-col>{{product}}</ion-col>
+        </ion-row>
+        <ion-row class="spacing"></ion-row>
+        <ion-row justify-content-center align-items-center>
+            <ion-spinner [style.display]="displaySpinner" name="lines"> </ion-spinner>
+        </ion-row>
+      </ion-grid>
+      <!--
+    <ion-grid vertical="bottom">
+      <ion-row>
+        <ion-col>
+            <div class="preloader-scan">
+                <ul>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  <li></li>
+                  
+                  <div class="diode">
+                    <div class="laser"></div>
+                  </div>
+                </ul>
+              </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="warning" (touchstart)="fabDown()" (touchend)="fabUp()">
+          <ion-icon name="barcode"></ion-icon>
+        </ion-fab-button>
+    
+    
+      </ion-fab>
+</ion-content>
+
+
+

@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            CONTROLLI
+          </ion-title>
+        <ion-buttons slot="start">
+            <ion-button (click)="back()">
+                <ion-icon slot="icon-only" name="arrow-back"  ></ion-icon>
+              </ion-button>
+        
+        </ion-buttons>
+      
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list lines="none">
+  
+      <ion-item *ngFor="let control of controls; let i= index;trackBy: trackByControl">
+        <ion-card>
+          <ion-item (click)="goToControlList(event,control)">
+            <ion-grid>
+                <ion-row align-items-center justify-content-cente>
+                    <ion-col size="3">
+                      <img src='assets/images/notepad.svg' width='42' height='42'>
+                    </ion-col>
+                    <ion-col size="9">
+                     {{control.CONTROLLO_NOTA}}
+                    </ion-col>
+                   
+                  </ion-row>
+              <ion-row align-items-center justify-content-cente>
+               
+                <ion-col size="3">
+                    <img src='assets/images/drum.svg'>
+                </ion-col>
+                <ion-col size="9">
+                   
+                    {{control.bottale}}
+                </ion-col>
+              </ion-row>
+              <ion-row align-items-center  justify-content-cente>
+                <ion-col size="8">
+                <div class="font-small">
+                    
+                    <b>ODP</b>  {{control.odp}}
+                </div>
+                </ion-col>
+                <ion-col size="4">
+                    <b>STEP</b> {{control.passo}}
+                </ion-col>
+  
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-card>
+      </ion-item>
+  
+    </ion-list>
+  </ion-content>

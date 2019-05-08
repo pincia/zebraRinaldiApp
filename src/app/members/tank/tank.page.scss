@@ -1,0 +1,24 @@
+.working{
+    fill: green;
+}
+.started{
+        background: green;
+        color: white;
+   
+}
+.flex-div{
+    width:100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ } 
+.stopped{
+    background: red;
+    color: white;
+
+}
+ion-spinner {
+
+    transform: scale(3);
+    }

@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>HOME</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content justify-content-center>
+  <app-auto-logout></app-auto-logout>
+  <div  style="display: flex; justify-content: center;flex-wrap: wrap; height: 76%;margin: 35px 20px;">
+   
+    <div  [routerLink]="'/drums'" routerDirection="forward" class="flex-div bottom-div "  >
+      <ion-icon  src="/assets/images/drum.svg" class="home-icon"></ion-icon>
+    </div>
+    <div  [routerLink]="'/storage'" routerDirection="forward"class="flex-div bottom-div left-div"  >
+      <ion-icon src="/assets/images/tank_icon.svg" class="home-icon"></ion-icon>
+    </div>
+    <div [routerLink]="'/members/recipe'" routerDirection="forward"  class="flex-div ">
+      <ion-icon  src="/assets/images/notepad.svg" class="home-icon"></ion-icon>
+    </div>
+    <div  [routerLink]="'/alarms'" routerDirection="forward"  class="flex-div left-div">
+      <ion-icon  src=" /assets/images/warning.svg " class="home-icon"></ion-icon>
+    </div>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button color="success" (click)="feedback(0);talk();">
+        <ion-icon name="mic"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+ 
+</ion-content>   

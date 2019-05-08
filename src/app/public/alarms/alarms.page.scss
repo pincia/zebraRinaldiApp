@@ -1,0 +1,46 @@
+/*ion-toolbar {
+    --background: #5381A7 !important; 
+ }
+*/
+html /deep/ .toolbar-background  {
+    background: #d80e0e!important;
+}
+ion-card{
+    height: 40px;
+    background: #f32424;
+    vertical-align: middle;
+    color: white;
+    margin: 5px;
+    padding: 8px;
+    font-weight: bold;
+
+}
+
+@-webkit-keyframes argh-my-eyes {
+    0%   { background-color: #d80e0e;}
+    49% { background-color: #d80e0e; }
+    50% { background-color:  #f04141; }
+    99% { background-color: #f04141; }
+    100% { background-color: #d80e0e; }
+  }
+  @-moz-keyframes argh-my-eyes {
+    0%   { background-color: #d80e0e; }
+    49% { background-color: #d80e0e;  }
+    50% { background-color: #f04141; }
+    99% { background-color: #f04141; }
+    100% { background-color: #d80e0e;  }
+  }
+  @keyframes argh-my-eyes {
+    0%   { background-color: #d80e0e;  }
+    49% { background-color: #d80e0e;  }
+    50% { background-color: #f04141; }
+    99% { background-color: #f04141; }
+    100% { background-color:#d80e0e;  }
+  }
+  
+
+  .blink  {
+  -webkit-animation: argh-my-eyes 1s infinite;
+  -moz-animation:    argh-my-eyes 1s infinite;
+  animation:         argh-my-eyes 1s infinite;
+}
