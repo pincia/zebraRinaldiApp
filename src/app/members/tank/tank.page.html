@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button [routerLink]="'/storage'">
 
@@ -15,10 +15,9 @@
       <ion-row no-padding style="height:100%;" [style.display]="displayTank">
         <ion-col no-padding style="height:100%;" size="12">
             <div  style="display: flex; justify-content: center;flex-wrap: wrap;">
-          <ion-card no-padding style="width: 100%;">
-            <ion-card-header no-padding class=" ion-text-center tank-header">
+         
               <ion-grid no-padding>
-                <ion-row no-padding>
+                <ion-row no-padding style="margin-top:30px;">
                   <ion-col size="7" style="height: 46px;">
                     <div *ngIf="abilitazione"   style="border: 2px solid #6f6e6e;border-radius: 5px;">
                         CARICO<br>ABILITATO
@@ -38,10 +37,10 @@
                   </ion-col>
                 </ion-row>
               </ion-grid>
-            </ion-card-header>
+           
             <div class="flex-div" >
               <svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="270px" height="340px" 
+                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="370px" height="500px" 
                 viewBox="25.5 0 270 370" enable-background="new 25.5 0 270 370" xml:space="preserve">
                 <defs>
                   <linearGradient id="Gradient1">
@@ -174,13 +173,8 @@
 <text transform="matrix(1 0 0 1 96.02 185)" font-family="monospace" font-size="21">{{percentage}}%</text>
 
               </svg>
-
-
-              <i class="fa fa-arrow-down" aria-hidden="true"></i>
-
+            
             </div>
-   
-          </ion-card>
           </div>
         </ion-col>
       </ion-row>
@@ -193,7 +187,5 @@
       <ion-fab-button color="warning" (touchstart)="fabDown()" (touchend)="fabUp()">    
         <ion-icon name="barcode"></ion-icon>
       </ion-fab-button>
-    
-     
     </ion-fab>
 </ion-content>

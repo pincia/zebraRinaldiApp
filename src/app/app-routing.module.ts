@@ -8,7 +8,7 @@ const routes: Routes = [
     {path: 'login', loadChildren: './public/login/login.module#LoginPageModule'},
     {path: 'members/recipe', canActivate: [AuthGuard], loadChildren: './members/recipe/tabs/tabs.module#TabsPageModule'},
     // { path: '',  canActivate: [AuthGuard], loadChildren: './menu/menu.module#MenuPageModule'},
-
+    { path: 'odp/:idodp',  canActivate: [AuthGuard], loadChildren: './members/odp/odp.module#OdpPageModule' },
     {path: 'storage', loadChildren: './members/storage/storage.module#StoragePageModule'},
     {path: 'drums', loadChildren: './members/drums/drums.module#DrumsPageModule'},
     {path: 'modal', loadChildren: './modals/modal/modal.module#ModalPageModule'},
@@ -16,6 +16,7 @@ const routes: Routes = [
     {path: 'members/tank/:id', loadChildren: './members/tank/tank.module#TankPageModule'},
     {path: 'carico-modal', loadChildren: './modals/carico-modal/carico-modal.module#CaricoModalPageModule'},
     {path: 'alarms', loadChildren: './public/alarms/alarms.module#AlarmsPageModule'},
+    {path: 'profile', loadChildren: './members/profile/profile.module#ProfilePageModule'},
     {path: 'carico', loadChildren: './members/carico/carico.module#CaricoPageModule'},
     {path: 'members/checkproduct/:drum/:step/:odp', loadChildren: './members/checkproduct/checkproduct.module#CheckproductPageModule'},
     {path: 'members/control/:idodpfasi/:idazione/:numerico', loadChildren: './members/recipe/control/control.module#ControlPageModule'},
@@ -24,7 +25,8 @@ const routes: Routes = [
         loadChildren: './members/recipe/controlslist/controlslist.module#ControlslistPageModule'
     },
     {path: '', loadChildren: './menu/menu.module#MenuPageModule'},
-];
+  { path: 'home-menu-popover-page', loadChildren: './popover/home-menu-popover-page/home-menu-popover-page.module#HomeMenuPopoverPagePageModule' },
+  ];
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { /*preloadingStrategy: PreloadAllModules, enableTracing: true*/}), CommonModule

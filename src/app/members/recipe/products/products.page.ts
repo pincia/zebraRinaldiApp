@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ModalController, PopoverController } from '@ionic/angular';
 import { ModalPage } from '../../../modals/modal/modal.page';
 import { DataService } from 'src/app/services/data.service';
+import { PushService } from 'src/app/services/push.service';
 
 @Component({
   selector: 'app-products',
@@ -16,16 +17,16 @@ export class ProductsPage implements OnInit {
   products:any;
   router:Router;
   interval:any;
-  constructor(private dataService: DataService, private http:HttpClient, router:Router,private modalController:ModalController, private popoverController: PopoverController){
+  constructor(private pushservice: PushService, private dataService: DataService, private http:HttpClient, router:Router,private modalController:ModalController, private popoverController: PopoverController){
     this.router=router;
     this.getData();
     this.interval = setInterval(()=>{ 
      this.getData();
-    }, 5000);
+    }, 500);
   }
 
 getData(){
-  this.products = this.dataService.productsdata;
+  this.products = this.pushservice.productsdata;
 }
 ngOnDestroy(): void {
 clearInterval(this.interval);

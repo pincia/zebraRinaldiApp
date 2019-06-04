@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>DRUMS</ion-title>
+  <ion-toolbar color="primary">
+    <ion-title >DRUMS</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -8,29 +8,43 @@
 </ion-header>
 
 <ion-content>
-    <canvas id="renderCanvas"></canvas>
-    <!--
+   <!-- <canvas id="renderCanvas"></canvas>-->
+    
   <ion-list lines="none">
     <ion-item *ngFor="let drum of drumdata; let i= index;trackBy: trackByDrum;">
-      <ion-card>
+      <ion-card style="width: 100%;">
        
-        <ion-card-header no-padding class="ion-text-center drum-header">DRUM {{drum.NOME}} </ion-card-header>
+        <ion-card-header no-padding class="ion-text-center drum-header">DRUM {{drum.NOME}} 
+          
+         
+        </ion-card-header>
+        
         <div class="item-content" style="width: 100%;padding: 0!important;">
           <ion-grid>
             <ion-row >
-              <ion-col size="5">
-                <div style="height: 15px;">
-                  <div   [ngClass]="drum.RUNNING!=1 ? 'hidden':' ' && drum.DIRECTION==1 ? 'cc blink ':'ccw blink'" >
+              <ion-col size="5" style="text-align: center;">
+                
+                <div style="height: 45px;">
+                  <ion-icon ios="ios-warning" md="md-warning" [ngClass]="drum.ALARM==1 ? 'blink_alarm ':'hidden'"></ion-icon>
+                  <div   [ngClass]="drum.RUNNING==0 ? 'hidden':' ' && drum.DIREZIONE==1 ? 'cc blink ':'ccw blink'" >
                     </div>
                   </div>
-                <img src='assets/images/drum.svg'>
-                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                <div >
+                <img  src='assets/images/drum_dashboard.svg'>
+                </div>
               </ion-col>
               <ion-col size="1">
                 <div id="semaforo" style = "border: 2px solid; width: 24px;">
-                  <div style="background: red;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.RED!=1 ? 'hidden-background':'show'"></div>
-                  <div style="background: yellow;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.YELLOW!=1 ? 'hidden-background':'show'"></div>
-                  <div style="background: green;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.GREEN!=1 ? 'hidden-background':'show'"></div>
+                  <div style="background: red;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.LUCE_ROSSA!=1 ? 'hidden-background':'show'"></div>
+                  <div style="background: yellow;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.LUCE_GIALLA!=1 ? 'hidden-background':'show'"></div>
+                  <div style="background: green;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.LUCE_VERDE!=1 ? 'hidden-background':'show'"></div>
+                </div>
+                
+                <div>
+                    <ion-icon (click)="goToODP($event,drum)"  style="margin-top: 50px; font-size: 27px;margin-left: -15px;" name="paper"></ion-icon>
+         
+          
+
                 </div>
               </ion-col>
               <ion-col style="padding-left:10px;" class="ion-text-end" size="3">
@@ -41,19 +55,19 @@
                   {{drum.PASSO}}
                 </ion-row>
                 <ion-row style="padding: 2px;">
-                  {{drum.TEMP}}
+                  {{drum.TEMPERATURA/10}}°
                 </ion-row>
                 <ion-row style="padding: 2px;">
-                 {{drum.TEMP_SET}}
+                 {{drum.TEMPERATURA_SET/10}}°
                 </ion-row>
                 <ion-row style="padding: 2px;">
-                  {{drum.RPM}}
+                  {{drum.RPM/10}}
                 </ion-row>
                 <ion-row style="padding: 2px;">
                     <div style="background: rgb(4, 238, 4);height: 14px; width: 14px;margin-top: 1px;border-radius: 50%;border: 2px solid darkgrey" [ngClass]= "drum.RUNNING==1?'':'hidden-background'"></div>
                 </ion-row>
                 <ion-row style="padding: 2px;">
-                    <div style="background: red;height: 14px; width: 14px;margin-top: 2px;border-radius: 50%;border: 1px solid darkgrey" [ngClass]= "drum.HEATING==0?'':'hidden-background'"></div></ion-row>
+                    <div style="background: red;height: 14px; width: 14px;margin-top: 2px;border-radius: 50%;border: 2px solid darkgrey" [ngClass]= "drum.RISCALDAMENTO==1?'':'hidden-background'"></div></ion-row>
               </ion-col>
                 <ion-col  class="ion-text-start" size="3">
                   <ion-row style="padding: 2px;">
@@ -88,5 +102,5 @@
     </ion-item>
 
   </ion-list>
--->
+
 </ion-content>

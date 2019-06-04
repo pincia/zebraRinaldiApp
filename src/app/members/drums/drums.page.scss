@@ -45,6 +45,8 @@
   -webkit-animation: argh-my-eyes 1s infinite;
   -moz-animation:    argh-my-eyes 1s infinite;
   animation:         argh-my-eyes 1s infinite;
+  position: relative;
+  top:25px;
 }
 .hidden{
   display:none;
@@ -53,8 +55,34 @@
     background: transparent!important;
 }
 
-#renderCanvas {
-  width   : 100%;
-  height  : 100%;
-  touch-action: none;
+@-webkit-keyframes argh-my-eyes_alarm {
+  0%   { color: #ff0000  transparent;}
+  49% {color: #ff0000  transparent; }
+  50% { color:  transparent; }
+  99% { color: transparent; }
+  100% { color: #ff0000  transparent; }
 }
+@-moz-keyframes argh-my-eyes_alarm {
+  0%   { color: #ff0000  transparent; }
+  49% { color: #ff0000  transparent;  }
+  50% { color:  transparent; }
+  99% {color: transparent; }
+  100% {color: #ff0000  transparent;  }
+}
+@keyframes argh-my-eyes_alarm {
+  0%   { color: #ff0000  transparent;  }
+  49% {color: #ff0000  transparent;  }
+  50% { color:  transparent; }
+  99% { color: transparent; }
+  100% { color:#ff0000  transparent;  }
+}
+
+
+.blink_alarm  {
+  font-size: 46px;
+  color: red;
+-webkit-animation: argh-my-eyes_alarm 1s infinite;
+-moz-animation:    argh-my-eyes_alarm 1s infinite;
+animation:         argh-my-eyes_alarm 1s infinite;
+}
+

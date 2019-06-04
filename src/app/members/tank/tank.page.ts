@@ -6,6 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 import { BarcodeService } from 'src/app/barcode.service';
 import { Events, AlertController } from '@ionic/angular';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { PushService } from 'src/app/services/push.service';
 
 @Component({
   selector: 'app-tank',
@@ -28,7 +29,7 @@ export class TankPage implements OnInit {
   public status:string; 
   public displaySpinner:string;
   public displayTank:string;
-  constructor(private tts: TextToSpeech,public router:Router, public atrCtrl: AlertController, public events:Events, private barcodeProvider: BarcodeService,private dataService: DataService , private route: ActivatedRoute, private http:HttpClient) { 
+  constructor(private pushservice: PushService , private tts: TextToSpeech,public router:Router, public atrCtrl: AlertController, public events:Events, private barcodeProvider: BarcodeService,private dataService: DataService , private route: ActivatedRoute, private http:HttpClient) { 
     this.tank =  { ID: "pippo" , NOME:""};
     this.riciclo =false;
     this.mixing =false;
@@ -50,7 +51,7 @@ export class TankPage implements OnInit {
     var interval = setInterval(()=>{ 
      this.getData();
 
-    }, 5000);
+    }, 500);
  
   }
 
@@ -103,7 +104,7 @@ export class TankPage implements OnInit {
   }
 
   getData(){
-   let tanks = this.dataService.tanksdata;
+   let tanks = this.pushservice.tanksdata;
    for (let _tank of tanks){
      if (_tank.ID == this.id){
        this.tank = _tank;

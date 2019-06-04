@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import {Platform, Events } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
+
+import { environment } from 'src/environments/environment';
 const TOKEN_KEY = 'auth-token';
 
 @Injectable({
@@ -12,13 +14,15 @@ const TOKEN_KEY = 'auth-token';
 
 export class AuthenticationService {
   authenticationState = new BehaviorSubject(false);
-  
+  host:any;
+ 
   public storage: Storage;
   constructor(public events: Events, storage: Storage, private plt: Platform,private http:HttpClient) { 
     this.storage = storage;
     this.plt.ready().then(() => {
       this.checkToken();
     });
+    this.host = environment.serverEndpoint;
   }
  
   checkToken() {
@@ -30,18 +34,24 @@ export class AuthenticationService {
   }
  
   login(id:string,password:string) {
-    let route:string = 'http://c7183545.ngrok.io/login/'+id+'@'+password;+
+    let route:string = this.host+'/login/'+id+'@'+password;
+    this.storage.set(TOKEN_KEY, id+' '+password).then(() => {
+      this.authenticationState.next(true);});
+    
     console.log(route);
     this.http.get(route)
     .subscribe(data => {
 
      if (data!='0'){
+      console.log("OK LOGGED");
        this.storage.set(TOKEN_KEY, id+' '+password).then(() => {
         this.authenticationState.next(true);});
         var res= true;
+
         this.events.publish('login: done', res);
       }
       else{
+        console.log("KO NOT LOGGED WRONG DATA");
         var res= false;
         this.events.publish('login: done', res);}
      
@@ -49,27 +59,25 @@ export class AuthenticationService {
   }
 
     loginWithCode(code:string) {
-      let route:string = 'http://c7183545.ngrok.io/logincode/'+code;
-      console.log('MSG: LOGINWITHCODE FUNCTION '+route); 
+      let route:string =this.host+'/logincode/'+code;
+      console.log(route); 
 
       this.http.get(route).subscribe(data => {
     
        if (data!='0'){
+          console.log("OK LOGGED");
            this.storage.set(TOKEN_KEY, code).then(() => {
           this.authenticationState.next(true);});
           var res= true;
           this.events.publish('login: done', res);
        }
        else{
+      
         var res= false;
         this.events.publish('login: done', res);
        }
       })
-    /*
-    return this.storage.set(TOKEN_KEY, 'Bearer 1234567').then(() => {
-      this.authenticationState.next(true); return this.storage.set(TOKEN_KEY, 'Bearer 1234567').then(() => {
-      this.authenticationState.next(true);
-    });*/
+   
   }
  
   logout() {

@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CaricoModalPage } from 'src/app/modals/carico-modal/carico-modal.page';
 import { DataService } from 'src/app/services/data.service';
+import { PushService } from 'src/app/services/push.service';
 //import { CaricoModalPage } from 'src/app/modals/carico-modal/carico-modal.page';
 
 
@@ -23,7 +24,7 @@ export class StoragePage implements OnInit , OnDestroy {
   router:Router;
   tanksdata:any;
   interval:any;
-  public constructor(private dataService: DataService, private authService: AuthenticationService, public navCtrl: NavController, 
+  public constructor(private pushservice: PushService, private dataService: DataService, private authService: AuthenticationService, public navCtrl: NavController, 
     public events: Events, private changeDetectorRef: ChangeDetectorRef, private device: Device,
     private http:HttpClient, router:Router,public modalController: ModalController,
     private alertController: AlertController, private platform: Platform, private toastController: ToastController) {
@@ -35,7 +36,7 @@ export class StoragePage implements OnInit , OnDestroy {
     this.interval = setInterval(()=>{ 
      this.getData();
     
-    }, 5000);
+    }, 500);
   
 
 
@@ -49,7 +50,7 @@ export class StoragePage implements OnInit , OnDestroy {
     clearInterval(this.interval);
    }
 getData(){
-  this.tanksdata = this.dataService.tanksdata;
+  this.tanksdata = this.pushservice.tanksdata;
 }
   goToTank(event, tank) {
    console.log("GOTO TANKKKKKK"+tank);

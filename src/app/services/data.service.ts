@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
-
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -16,36 +16,37 @@ export class DataService {
   public productscodesdata:any;
   public controlsdata:any;
   public vibration:boolean;
+  public endpoint= environment.serverEndpoint;
   constructor(
     private http:HttpClient, private router: Router,private tts: TextToSpeech) { 
-    this.host = "c7183545.ngrok.io"
-    this.getMessage();
-    this.getAlarms();
-    this.getTanksData();
-    this.getDrumsData();
-    this.getProductsCodes();
-    this.getProductsData();
-    this.getControlsData();
-    this.getNewAlarms();
+    this.host =environment.serverEndpoint;
+    
+    //this.getMessage();
+    //this.getAlarms();
+    //this.getTanksData();
+    //this.getDrumsData();
+    //this.getProductsCodes();
+    //this.getProductsData();
+    //this.getControlsData();
+    //this.getNewAlarms();
  
     var interval = setInterval(()=>{ 
-    this.getMessage();
-      this.getAlarms();
-     this.getTanksData();
-     this.getDrumsData();
-    this.getProductsCodes();
-     this.getProductsData();
-     this.getControlsData();
-    this.getNewAlarms();
+    //this.getMessage();
+      //this.getAlarms();
+     //this.getTanksData();
+     //this.getDrumsData();
+    //this.getProductsCodes();
+    // this.getProductsData();
+     //this.getControlsData();
+    //this.getNewAlarms();
     
     }, 5000);
 
     
   }
-
   getTanksData(){
 
-    this.http.get('http://'+this.host+'/gettanksdata')
+    this.http.get(this.endpoint+'/gettanksdata')
     .subscribe(data => {
       this.tanksdata=data;
     })
@@ -53,20 +54,20 @@ export class DataService {
   
   getDrumsData(){
   
-    this.http.get('http://'+this.host+'/getdrumsdata')
+    this.http.get(this.endpoint+'/getdrumsdata')
     .subscribe(data => {
       this.drumsdata=data;
     })
   }
   getProductsCodes(){
   
-    this.http.get('http://'+this.host+'/getproductscodes')
+    this.http.get(this.endpoint+'/getproductscodes')
     .subscribe(data => {
       this.productscodesdata=data;
     })
   }
   getNewAlarms(){  
-    this.http.get('http://'+this.host+'/getnewalarms')
+    this.http.get(this.endpoint+'/getnewalarms')
     .subscribe(data => {
       if (data ==1){
         this.vibration = true;
@@ -76,7 +77,7 @@ export class DataService {
     })
   }
   getMessage(){  
-    this.http.get('http://'+this.host+'/getmessage')
+    this.http.get(this.endpoint+'/getmessage')
     .subscribe(data => {
      
       if (data[0]['MESSAGGIO']!=""){
@@ -92,20 +93,20 @@ export class DataService {
     })
   }
   getAlarms(){  
-    this.http.get('http://'+this.host+'/getalarms')
+    this.http.get(this.endpoint+'/getalarms')
     .subscribe(data => {
      this.alarms = data;
     })
   }
   getProductsData(){
-    this.http.get('http://'+this.host+'/products/1')
+    this.http.get(this.endpoint+'/products/1')
     .subscribe(data => {
       this.productsdata=data;
       
     })
   }
   getControlsData(){
-    this.http.get('http://'+this.host+'/controls/1')
+    this.http.get(this.endpoint+'/controls/1')
     .subscribe(data => {
       this.controlsdata=data;
     })

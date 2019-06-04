@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
+import { PushService } from 'src/app/services/push.service';
 
 @Component({
   selector: 'app-controls',
@@ -13,17 +14,17 @@ export class ControlsPage implements OnInit {
 
   controls:any;
   router:Router;
-  constructor(private dataService: DataService ,private http:HttpClient,router:Router){
+  constructor(private pushservice: PushService, private dataService: DataService ,private http:HttpClient,router:Router){
     this.getData();
     this.router = router;
     var interval = setInterval(()=>{ 
       this.getData();
      
-     }, 5000);
+     }, 500);
   }
 
   getData(){
-this.controls=this.dataService.controlsdata;
+this.controls=this.pushservice.controlsdata;
   
   }
   goToControlList(event, control) {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { Vibration } from '@ionic-native/vibration/ngx';
 import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
+import { PushService } from 'src/app/services/push.service';
 
 
 
@@ -13,12 +14,23 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 export class AlarmsPage implements OnInit {
   public alarms:any;
   public text:string;
-  constructor(private tts: TextToSpeech, private vibration:Vibration, private dataService: DataService) {
-    this.alarms = dataService.alarms;
-    console.log(this.alarms);
-    this.text = 'Allarme '+this.alarms[0]['NOME_MACCHINA']+' '+this.alarms[0]['NOME_ALLARME'].toLowerCase( );
-    //this.text ="PAOLO GAY!";
+  interval:any;
+  constructor(private pushservice:PushService, private tts: TextToSpeech, private vibration:Vibration, private dataService: DataService) {
+    this.alarms = pushservice.alarms;
+
+   // this.text = 'Allarme '+this.alarms[0]['NOME_MACCHINA']+' '+this.alarms[0]['NOME_ALLARME'].toLowerCase( );
+    this.text=""; 
+    this.getData();
+    this.interval = setInterval(()=>{ 
+     this.getData();
+    }, 500);
   }
+
+
+getData(){
+  this.alarms = this.pushservice.alarms;
+
+}
 
   ngOnInit() {
     if(this.dataService.vibration ){

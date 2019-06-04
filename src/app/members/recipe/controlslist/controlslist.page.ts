@@ -12,7 +12,7 @@ export class ControlslistPage implements OnInit {
   idAzioneGroup:any;
   public controlslist:any;
   displaySpinner:any;
-  host =  "c7183545.ngrok.io";
+  host =  "76a4b2d1.ngrok.io";
   constructor(public router:Router, private http:HttpClient, public route:ActivatedRoute) {
     this.displaySpinner = "block";
     this.route.paramMap
@@ -24,6 +24,7 @@ export class ControlslistPage implements OnInit {
        var azioni = this.idAzioneGroup.replace(re, "X");
        this.http.get('http://'+this.host+'/getcontrolslist/'+azioni)
        .subscribe(data => {
+         console.log("CONTROLLI ARRIVATI");
         this.displaySpinner = "none";
         this.controlslist = data;
         

@@ -37,6 +37,9 @@
               },
               {
                 "input": "src/global.scss"
+              },
+              {
+                "input": "src/app/app.scss"
               }
             ],
             "scripts": []
@@ -98,7 +101,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [],
+            "styles": [
+              {
+                "input": "src/app/app.scss"
+              }
+            ],
+
             "scripts": [],
             "assets": [
               {

@@ -1,0 +1,47 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>ODP {{id_odp}}</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+     </ion-buttons>
+    <ion-buttons slot="end">
+       <ion-button  (click)="downloadPDF()">
+        <ion-icon slot="end" *ngIf="isLoaded" src="/assets/images/pdf.svg" style="font-size: 2.5em;">PDF</ion-icon>
+        </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row style="font-size: 12px;border-bottom: solid 2px;border-color:darkslateblue; ">
+      <ion-col size="2"><b>PASSO</b></ion-col>
+      <ion-col size="4"><b>DESCRIZIONE</b></ion-col>
+      <ion-col size="2"><b>RPM</b></ion-col>
+      <ion-col size="3"><b>PRODOTTO</b></ion-col>  
+      <ion-col size="1"><b>WT C°</b></ion-col>
+    </ion-row>
+    <ion-row [ngClass]="drum.PASSO==line.PASSO ? 'highlighted':''" *ngFor="let line of odp; let i= index;" style="border-bottom: solid 1px;border-color:grey;" >
+      <ion-col size="2">
+        {{line.PASSO}}
+      </ion-col>
+      <ion-col size="4">
+        {{line.DESCRIZIONE}}
+      </ion-col>
+      <ion-col size="2">
+        {{line.RUOTA_RPM}}
+      </ion-col>
+      <ion-col size="3">
+        {{line.PRODOTTO}}
+      </ion-col>
+      <ion-col size="1">
+        {{line.ACQUA_TEMP}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab vertical="center" horizontal="center" slot="fixed">
+      <ion-spinner [style.display]="displaySpinner" name="lines"></ion-spinner>
+    </ion-fab>
+</ion-content>

@@ -1,9 +1,10 @@
-<ion-header>
-  <ion-toolbar>
+ <!--<ion-header>
+ 
+  <ion-toolbar  color="primary">
     <ion-title>LOGIN</ion-title>
   </ion-toolbar>
 </ion-header>
-
+-->
 <ion-content no-padding class="align">
 <ion-grid>
     <ion-row>
@@ -26,7 +27,7 @@
 <ion-fab vertical="center" horizontal="center" slot="fixed" >
     <ion-spinner [style.display]="displaySpinner" name="lines"></ion-spinner>
   </ion-fab>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+  <ion-fab vertical="bottom" no-margin horizontal="end" slot="fixed" >
       <ion-fab-button color="warning" (touchstart)="fabDown()" (touchend)="fabUp()">    
         <ion-icon name="barcode"></ion-icon>
       </ion-fab-button>

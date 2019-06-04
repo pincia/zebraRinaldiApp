@@ -1,6 +1,93 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons slot="start">
+          <ion-menu-button class= "menuIcon"></ion-menu-button >
+        </ion-buttons>
+    <ion-title [ngStyle]="getHeaderStyle()">
+      <!-- <img src="assets/imgs/new-hrms.png" class="whiteLogo"> -->
+    </ion-title>
+    <div *ngIf="roleId != '1'" class="notification-div">
+      <ion-icon ios="ios-more" md="md-more"  (click)="presentPopover($event)" class="notificationIcon"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content no-bounce class="background-content">
+  <div class="profile-card-div" [ngStyle]="getstyle()">
+    <ion-card class="home-card" [ngStyle]="getstyle()">
+      <div class="home-header">
+        <img src="/assets/images/logo.svg" class="logo slide-in">
+        <p style="color:rgba(255, 255, 255, 0.904);font-size: 16px">Automation Integration</p>
+      </div>
+    
+    </ion-card>
+  </div>
+  <div class="home-data-card">
+    <div class="dashboard-area">
+      <ion-row class="dashboard-row">
+        <ion-col col-6 class="dashboard-col" [ngClass]="cssClass">
+          <div class="dash-widget" #myElement>
+            <div class="dash-widget-icon">
+              <div  [routerLink]="'/drums'" routerDirection="forward" (click)="feedback(0);"  >
+                <ion-icon  src="/assets/images/drums.svg" class="home-icon"></ion-icon>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+             
+              <p class="dash-text">Drums</p>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col col-6 [ngClass]="cssClass" class="dashboard-col" >
+          <div class="dash-widget">
+            <div class="dash-widget-icon">
+              <div  [routerLink]="'/storage'" routerDirection="forward"  >
+                <ion-icon src="/assets/images/tanks.svg" class="home-icon"></ion-icon>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+              
+              <p class="dash-text">Tanks</p>
+            </div>
+          </div>
+        </ion-col>
+     </ion-row>   
+     <ion-row class="dashboard-row">
+        <ion-col col-6 [ngClass]="cssClass" class="dashboard-col" >
+          <div class="dash-widget">
+            <div class="dash-widget-icon">
+              <div [routerLink]="'/members/recipe'" routerDirection="forward"  >
+                <ion-icon  src="/assets/images/products.svg" class="home-icon"></ion-icon>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+             
+              <p class="dash-text">Recipe</p>
+            </div>
+          </div>
+        </ion-col>
+
+
+        <ion-col *ngIf="roleId != '3'" col-6 [ngClass]="cssClass" class="dashboard-col" >
+          <div class="dash-widget">
+            <div class="dash-widget-icon">
+              <div  [routerLink]="'/alarms'" routerDirection="forward"  >
+                <ion-icon  src=" /assets/images/alarms.svg " class="home-icon"></ion-icon>
+              </div>
+            </div>
+            <div class="dash-widget-info">
+             
+              <p class="dash-text">Alarms</p>
+            </div>
+          </div>
+        </ion-col>
+
+      </ion-row>
+    </div>
+  </div>
+</ion-content>
+<!--<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
     <ion-buttons slot="end">
@@ -17,7 +104,7 @@
   <app-auto-logout></app-auto-logout>
   <div  style="display: flex; justify-content: center;flex-wrap: wrap; height: 76%;margin: 35px 20px;">
    
-    <div  [routerLink]="'/drums'" routerDirection="forward" class="flex-div bottom-div "  >
+    <div  [routerLink]="'/drums'" routerDirection="forward" (click)="feedback(0);" class="flex-div bottom-div "  >
       <ion-icon  src="/assets/images/drum.svg" class="home-icon"></ion-icon>
     </div>
     <div  [routerLink]="'/storage'" routerDirection="forward"class="flex-div bottom-div left-div"  >
@@ -37,4 +124,4 @@
       </ion-fab-button>
     </ion-fab>
  
-</ion-content>   
+</ion-content>   -->
