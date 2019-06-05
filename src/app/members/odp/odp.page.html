@@ -18,16 +18,16 @@
   <ion-grid>
     <ion-row style="font-size: 12px;border-bottom: solid 2px;border-color:darkslateblue; ">
       <ion-col size="2"><b>PASSO</b></ion-col>
-      <ion-col size="4"><b>DESCRIZIONE</b></ion-col>
+      <ion-col size="3"><b>DESCRIZ.</b></ion-col>
       <ion-col size="2"><b>RPM</b></ion-col>
       <ion-col size="3"><b>PRODOTTO</b></ion-col>  
-      <ion-col size="1"><b>WT C°</b></ion-col>
+      <ion-col size="2"><b>WT C°</b></ion-col>
     </ion-row>
     <ion-row [ngClass]="drum.PASSO==line.PASSO ? 'highlighted':''" *ngFor="let line of odp; let i= index;" style="border-bottom: solid 1px;border-color:grey;" >
       <ion-col size="2">
         {{line.PASSO}}
       </ion-col>
-      <ion-col size="4">
+      <ion-col size="3">
         {{line.DESCRIZIONE}}
       </ion-col>
       <ion-col size="2">
@@ -36,7 +36,7 @@
       <ion-col size="3">
         {{line.PRODOTTO}}
       </ion-col>
-      <ion-col size="1">
+      <ion-col size="2">
         {{line.ACQUA_TEMP}}
       </ion-col>
     </ion-row>

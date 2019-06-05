@@ -7,17 +7,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class=" background-content">
    <!-- <canvas id="renderCanvas"></canvas>-->
     
-  <ion-list lines="none">
-    <ion-item *ngFor="let drum of drumdata; let i= index;trackBy: trackByDrum;">
-      <ion-card style="width: 100%;">
+  <ion-list class="background-content" lines="none">
+    <ion-item  class="background-content" *ngFor="let drum of drumdata; let i= index;trackBy: trackByDrum;">
+      <ion-card style="width: 100%;--background: white;">
        
         <ion-card-header no-padding class="ion-text-center drum-header">DRUM {{drum.NOME}} 
-          
-         
-        </ion-card-header>
+      </ion-card-header>
         
         <div class="item-content" style="width: 100%;padding: 0!important;">
           <ion-grid>
@@ -41,13 +39,10 @@
                 </div>
                 
                 <div>
-                    <ion-icon (click)="goToODP($event,drum)"  style="margin-top: 50px; font-size: 27px;margin-left: -15px;" name="paper"></ion-icon>
-         
-          
-
+                    <ion-icon (click)="goToODP($event,drum)"  style="position: absolute;bottom: 15px;font-size: 7vw;" name="paper"></ion-icon>
                 </div>
               </ion-col>
-              <ion-col style="padding-left:10px;" class="ion-text-end" size="3">
+              <ion-col style="padding-left:15px;" class="ion-text-end" size="3">
                 <ion-row style="padding: 2px;">
                 {{drum.ID_ODP}}
                 </ion-row>

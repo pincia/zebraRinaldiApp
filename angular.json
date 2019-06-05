@@ -27,6 +27,11 @@
               },
               {
                 "glob": "**/*.svg",
+                "input": "src/assets/fonts",
+                "output": "assets/fonts"
+              },
+              {
+                "glob": "**/*",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
               }

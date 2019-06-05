@@ -14,17 +14,17 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list lines="none">
+<ion-content class="background-content" padding>
+  <ion-list  class="background-content" slines="none">
 
     
 
       <ion-grid no-padding>
         <ion-row no-padding>
           <ion-col  *ngFor="let tank of tanksdata; let i= index; trackBy: trackByTank;" (click)="goToTank($event,tank)" no-padding size="6">
-            <ion-card>
+            <ion-card style="background: white;">
               <ion-card-header no-padding class="ion-text-center drum-header">TANK {{tank.NOME}}</ion-card-header>
-              <div class="item-content" style="width: 100%;padding: 0!important;">
+              <div class="item-content" style="width: 100%;padding: 0!important;text-align: center">
 
                   <svg version="1.1" id="Livello_1" xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="118px" height="140px" 
@@ -144,8 +144,6 @@
   
                 </svg>
   
-                <i class="fa fa-arrow-down" aria-hidden="true"></i>
-
               </div>
             </ion-card>
           </ion-col>
