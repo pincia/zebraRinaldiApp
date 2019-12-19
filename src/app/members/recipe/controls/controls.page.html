@@ -17,7 +17,7 @@
     <ion-list lines="none">
   
       <ion-item *ngFor="let control of controls; let i= index;trackBy: trackByControl">
-        <ion-card>
+        <ion-card style="width:100%;"> 
           <ion-item (click)="goToControlList(event,control)">
             <ion-grid>
                 <ion-row align-items-center justify-content-cente>

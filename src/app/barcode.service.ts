@@ -5,14 +5,44 @@
 
 import { Injectable } from '@angular/core';
 import { Platform, Events } from '@ionic/angular';
-
+import { environment } from 'src/environments/environment';
+import { Storage } from '@ionic/storage';
+import { Device } from '@ionic-native/device/ngx';
 @Injectable()
+
 export class BarcodeService {
 
   private requestResultCodes = "false";
+device_type:any;
+barcodeManager=window['barcodeManager'];
+  constructor(device:Device, public events: Events, private platform: Platform, storage: Storage) {
+    this.device_type=3;
+    storage.set("DEVICE_TYPE",3)
+    this.barcodeManager.addReadListner(
+      (data) => {
+      console.log("PUBBLICO  "+data)
+       this.events.publish('data:scan', JSON.parse(data));
+      },
+      (err)=>{
+        alert(err);
+      }
+   );
 
-  constructor(public events: Events, private platform: Platform) {
+    if (device.manufacturer.includes('Zebra')){
+      this.device_type=1
+     storage.set("DEVICE_TYPE",1)
+    }
+    if (device.manufacturer.includes('Newl')){
+      this.device_type=2
+      storage.set("DEVICE_TYPE",2)
+    }
+   
+
+
+    
     this.platform.ready().then((readySource) => {
+
+
 
       let constructorInstance = this;
 
@@ -21,20 +51,42 @@ export class BarcodeService {
       //  Set up a broadcast receiver to listen for incoming scans
       (<any>window).plugins.intentShim.registerBroadcastReceiver({
         filterActions: [
+          'nlscan.action.SCANNER_RESULT',
           'it.italprogetti.zebraapp.ACTION',           //  Response from scan (needs to match value in output plugin)
-          'com.symbol.datawedge.api.RESULT_ACTION'//  Response from DataWedge service (as defined by API)
-        ],
+          'com.symbol.datawedge.api.RESULT_ACTION',//  Response from DataWedge service (as defined by API)
+          
+        ],/*
         filterCategories: [
           'android.intent.category.DEFAULT'
-        ]
+        ]*/
       },
       function (intent) {
+     
         //  Broadcast received
-        console.log('Received Intent: ' + JSON.stringify(intent.extras));
-
+        
         //  Emit a separate event for the result associated with this scan.  This will only be present in response to
         //  API calls which included a SEND_RESULT extra
-        if (intent.extras.hasOwnProperty('RESULT_INFO')) {
+        
+        //CASO SCANNER NEWLAND
+        storage.get("DEVICE_TYPE").then((val)=>{
+          if (intent.extras.hasOwnProperty('SCAN_BARCODE1')&&val==2) {
+            //  A barcode has been scanned
+            console.log("RICEVUTO  INTENT "+intent.extras)
+            console.log("INVIO DATASCAN SCAN_BARCODE1")
+            constructorInstance.events.publish('data:scan', intent, new Date().toLocaleTimeString());
+          }
+          if (!intent.extras.hasOwnProperty('RESULT_INFO')&&val==1) {
+            //  A barcode has been scanned
+            console.log("INVIO DATASCAN RESULT_INFO")
+            constructorInstance.events.publish('data:scan', intent, new Date().toLocaleTimeString());
+          }
+
+        })
+       
+
+
+        //CASO SCANNER ZEBRA
+        if (intent.extras.hasOwnProperty('RESULT_INFO') ) {
           let commandResult = intent.extras.RESULT + " (" +
             intent.extras.COMMAND.substring(intent.extras.COMMAND.lastIndexOf('.') + 1, intent.extras.COMMAND.length) + ")";  // + JSON.stringify(intent.extras.RESULT_INFO);
           constructorInstance.events.publish('data:commandResult', commandResult.toLowerCase());
@@ -67,10 +119,8 @@ export class BarcodeService {
           console.log("ACTIVE PROFILE "+activeProfile);
           constructorInstance.events.publish('data:activeProfile', activeProfile);
         }
-        else if (!intent.extras.hasOwnProperty('RESULT_INFO')) {
-          //  A barcode has been scanned
-          constructorInstance.events.publish('data:scan', intent, new Date().toLocaleTimeString());
-        }
+      
+       
       }
       );
 
@@ -91,10 +141,25 @@ export class BarcodeService {
   sendCommand(extraName: string, extraValue) {
     console.log("Sending Command: " + extraName + ", " + JSON.stringify(extraValue));
     (<any>window).plugins.intentShim.sendBroadcast({
-      action: 'com.symbol.datawedge.api.ACTION',
+     
+     action: 'com.symbol.datawedge.api.ACTION',
+    
       extras: {
         [extraName]: extraValue,
         "SEND_RESULT": this.requestResultCodes
+      }
+    },
+      function () { },  //  Success in sending the intent, not success of DW to process the intent.
+      function () { }   //  Failure in sending the intent, not failure of DW to process the intent.
+    );
+  }
+  sendCommandNewland() {
+      (<any>window).plugins.intentShim.sendBroadcast({
+      action: 'nlscan.action.SCANNER_TRIG',
+
+      extras: {
+        "SCAN_TIMEOUT": 4,
+        "SCAN_TYPE": 1
       }
     },
       function () { },  //  Success in sending the intent, not success of DW to process the intent.

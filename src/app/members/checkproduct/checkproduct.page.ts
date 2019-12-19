@@ -4,6 +4,8 @@ import { TextToSpeech } from '@ionic-native/text-to-speech/ngx';
 import { BarcodeService } from 'src/app/barcode.service';
 import { DataService } from 'src/app/services/data.service';
 import { Events } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+import { PushService } from 'src/app/services/push.service';
 @Component({
   selector: 'app-checkproduct',
   templateUrl: './checkproduct.page.html',
@@ -21,32 +23,59 @@ export class CheckproductPage implements OnInit {
   public stato:number;
   public displayProdotto:string;
   public displaySpinner:string;
-  constructor(private route: ActivatedRoute,public router:Router,private dataService: DataService,private events:Events, private tts: TextToSpeech, private barcodeProvider: BarcodeService) {
+  public feed_vocal:boolean;
+  public message:string;
+  public device_type:number;
+  constructor(private pushservice: PushService,private storage:Storage,private route: ActivatedRoute,public router:Router,private dataService: DataService,private events:Events, private tts: TextToSpeech, private barcodeProvider: BarcodeService) {
     this.displayDrum = "none";
     this.displayProdotto = "none";
     this.displaySpinner = "none";
     this.stato = 0;
-    this.productsdata = dataService.productsdata;
+    this.message="SCANSIONA CODICE BOTTALE";
+    this.productsdata =pushservice.productsdata;
     this.route.paramMap.subscribe((queryParams: ParamMap) => {
       this.drum = queryParams.get('drum');
       this.step = queryParams.get('step');
       this.odp = queryParams.get('odp');
    });
+   storage.get("DEVICE_TYPE").then((val)=>{
+    this.device_type=val
+  })
+   this.storage.get("feed_vocal").then(res => {
+    if (res) {
+       this.feed_vocal=res;      }
+    else{
+      this.feed_vocal=false;
+    }
+    console.log("FEED VOCAL "+this.feed_vocal);
+  });
    }
    ionViewWillEnter(){
     this.events.subscribe('data:scan', (scanData, time) => {
       //  Update the list of scanned barcodes
+      console.log("EVENTO DATASCAN "+scanData.extras)
+      if ( this.device_type==1){
       let scannedData = scanData.extras["com.symbol.datawedge.data_string"];
       let scannedType = scanData.extras["com.symbol.datawedge.label_type"];
-      //this.scans.unshift({ "data": scannedData, "type": scannedType, "timeAtDecode": time });
-      console.log("ZEBRA RECIVED CODE CARICO PAGE HANDLER" + scannedData);
       this.codeRead(scannedData);
+      }
+      if ( this.device_type==2){
+        
+        let scannedData = scanData.extras["SCAN_BARCODE1"];
+        console.log("SCANNED DATA "+scannedData);
+        this.codeRead(scannedData);
+      }
+      if ( this.device_type==3){
+        this.codeRead(scanData.barcodeData.substring(0,scanData.barcodeData.length-1));
+       
+      }
     });
      }
      ionViewWillLeave(){
        this.events.unsubscribe('data:scan');
      }
   ngOnInit() {
+    if(this.feed_vocal){
     this.tts.speak({
       text: "Scansiona codice bottale",
       locale: 'it-IT',
@@ -54,6 +83,7 @@ export class CheckproductPage implements OnInit {
   })
   .then(() => console.log('Success'))
   .catch((reason: any) => console.log(reason));
+}
   }
 
   public fabDown() {
@@ -70,12 +100,15 @@ export class CheckproductPage implements OnInit {
   }
 
   codeRead(data){
+    console.log("CODE READ FUNCTION ACTIVED!")
     switch(this.stato){
       case 0:{
+        console.log("CODICE LETTO STATO 0 PIPPO");
         this.findDrum(data);
         break;
       }
       case 1:{
+        console.log("CODICE LETTO STATO 1 PIPPO");
         this.findProduct(data);
         break;
       }
@@ -84,33 +117,51 @@ export class CheckproductPage implements OnInit {
   }
 
   findDrum(data){
-    console.log("FIND TANK");
+    console.log("FIND TANK "+data+ "ODP "+this.odp);
+    console.log(this.productsdata);
     for (let t in this.productsdata){
+      console.log("VERIFICO "+this.productsdata[t].NOME_BOTTALE+" - "+this.productsdata[t].ID_ODP);
       if (this.productsdata[t].NOME_BOTTALE==data && this.productsdata[t].ID_ODP== this.odp ){
+     
         this.stato=1;
         this.drum=data;
         this.drumid = this.productsdata[t].ID_BOTTALE;
         this.displayDrum = "block";
-       this.speak("Bottale "+this.drum+" selezionato correttamente. Scansiona codice contenitore.");
+        console.log("displaySpinner");
+        if(this.feed_vocal){
+           this.speak("Bottale "+this.drum+" selezionato correttamente. Scansiona codice contenitore.");
+        }
+        this.message="SCANSIONA CODICE CONTENITORE";
       return;
       }
     }
-
+    if(this.feed_vocal){
     this.speak("Codice bottale non corretto"); }
+  }
 
     findProduct(data){
       this.displayProdotto = "block";
+      console.log("displayProdotto");
+      if(this.feed_vocal){
       this.tts.speak({
         text: "Contenitore  selezionato.",
         locale: 'it-IT',
         rate: 1.25
     })
-    .then(() => 
+    .then(() => {
+    this.message="VERIFICA CONTENITORE IN CORSO"
       this.verifyContanier()
+    }
      )
     .catch((reason: any) => console.log(reason));  
+  }
+  else{
+    this.message="VERIFICA CONTENITORE IN CORSO"
+      this.verifyContanier()
+  }
     }
     speak(text){
+      if(this.feed_vocal){
       this.tts.speak({
         text: text,
         locale: 'it-IT',
@@ -118,22 +169,25 @@ export class CheckproductPage implements OnInit {
     })
     .then(() => console.log('Success'))
     .catch((reason: any) => console.log(reason));
-
-
+  }
     }
     verifyContanier(){
       this.displaySpinner = "block";
+      console.log("displaySpinner");
       if (true){
+        if(this.feed_vocal){
         this.tts.speak({
           text: "Inserimento completato.",
           locale: 'it-IT',
           rate: 1.25
       })
-      .then(() => 
-/*      this.router.navigate(['menu/dashboard'])*/ 
-console.log("test"))
+      .then(() => {
+      this.message="VERIFICA OK";
+      this.stato = 0;
+       this.router.navigate(['/members/recipe'])
+    })
       .catch((reason: any) => console.log(reason));  
-        
+    }
       }
     }
 }

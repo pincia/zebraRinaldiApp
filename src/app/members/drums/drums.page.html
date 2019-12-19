@@ -35,11 +35,11 @@
                 <div id="semaforo" style = "border: 2px solid; width: 24px;">
                   <div style="background: red;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.LUCE_ROSSA!=1 ? 'hidden-background':'show'"></div>
                   <div style="background: yellow;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.LUCE_GIALLA!=1 ? 'hidden-background':'show'"></div>
-                  <div style="background: green;height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.LUCE_VERDE!=1 ? 'hidden-background':'show'"></div>
+                  <div style="background: rgb(37, 216, 37);height: 16px; width: 16px;margin: 2px;" [ngClass]="drum.LUCE_VERDE!=1 ? 'hidden-background':'show'"></div>
                 </div>
                 
                 <div>
-                    <ion-icon (click)="goToODP($event,drum)"  style="position: absolute;bottom: 15px;font-size: 7vw;" name="paper"></ion-icon>
+                    <ion-icon *ngIf="drum.ID_ODP!=0" (click)="goToODP($event,drum)"  style="position: absolute;bottom: 15px;font-size: 7vw;" name="paper"></ion-icon>
                 </div>
               </ion-col>
               <ion-col style="padding-left:15px;" class="ion-text-end" size="3">
@@ -50,10 +50,10 @@
                   {{drum.PASSO}}
                 </ion-row>
                 <ion-row style="padding: 2px;">
-                  {{drum.TEMPERATURA/10}}°
+                  {{drum.TEMPERATURA}}°
                 </ion-row>
                 <ion-row style="padding: 2px;">
-                 {{drum.TEMPERATURA_SET/10}}°
+                 {{drum.TEMPERATURA_SET}}°
                 </ion-row>
                 <ion-row style="padding: 2px;">
                   {{drum.RPM/10}}

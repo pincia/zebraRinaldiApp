@@ -89,5 +89,10 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <allow-navigation href="http://192.168.101.11:8100" sessionid="544debb7" />
+    <plugin name="cordova-plugin-device" spec="^2.0.2" />
+    <plugin name="cordova-plugin-velda-devicefeedback" spec="0.0.2" />
+    <allow-navigation href="http://192.168.101.8:8100" sessionid="57d06b83" />
+    <plugin name="cordova-plugin-screen-orientation" spec="^3.0.1" />
+    <plugin name="cordova-plugin-datalogic" spec="@datalogic/cordova-plugin-datalogic@~0.2.3" />
     <engine name="android" spec="7.0.0" />
 </widget>

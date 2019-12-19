@@ -24,11 +24,15 @@ import { Observable, Subscription } from 'rxjs';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { AlertController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
+
 
 @Injectable({
     providedIn: 'root',
 })
+
+
 export class PushService {
     
     private _notifications: Subscription = null;
@@ -50,13 +54,60 @@ export class PushService {
     public vibration: boolean;
     public actualRNDTime:number;
     public endpoint:any;
+    public token:any;
+    public vpn_on:boolean;
+    public websocket_on:boolean;
     constructor(private _echo: EchoService,
         private alertCtrl: AlertController,
         private oneSignal: OneSignal,
         private http:HttpClient,
+        private storage: Storage,
     ) {
-        this.endpoint=environment.serverEndpoint;
-        if(environment.dataSocket){
+
+        this.storage.get('api_host').then(res => {
+            if (res) {
+               console.log("ENDPOINT SETTED TO "+res)
+            this.endpoint=res;
+            }
+          })
+          this.storage.get('authtoken').then(res => {
+            if (res) {
+                console.log("TOKEN TROVATO "+res);
+            this.token=res;
+            }
+          })
+         
+          this.storage.get('vpn_on').then(res => {
+            if (res) {
+            this.vpn_on=res;
+            }
+            else
+            {
+                this.vpn_on=false;
+            }
+            
+          })
+          this.storage.get('websocket_on').then(res => {
+            if (res) {
+            this.websocket_on=res;
+            }
+            else
+            {
+                this.websocket_on=false;
+                
+            }
+            if(environment.socketAlarm&&this.websocket_on){
+                console.log("CHECK WEBSOCKET")
+              this.interval = setInterval(()=>{ 
+                     this.checkCOM();
+                    }, 1500);
+            }
+            console.log("websocket_on "+this.vpn_on)
+    
+      
+
+        if(this.websocket_on){
+     //if(environment.dataSocket){
         console.log("PUSHSERVICE-> LISTEN TO CHANNEL");
         _echo.echo.channel('public').listen('.drumdata', (e) => {
             this._drumsdata = e['eventData']['drums'];
@@ -90,22 +141,20 @@ export class PushService {
 
         });
     }else{
-    this.getData();
+  //  this.getData();
     var interval = setInterval(()=>{ 
      this.getData();   
-    }, 2000);
+    }, 5000);
     }
+    })
         this.actualRND = 0;
         this.lastRND=0;
         this.lastRNDTime=Date.now();
 
 
-        //ABILITAZIONE SOCKET ALARM
-        if(environment.socketAlarm){
-        this.interval = setInterval(()=>{ 
-            this.checkCOM();
-           }, 1500);
-        }
+     
+
+        console.log("PUSH SERVICE STARTED  VPN_ON IS "+this.vpn_on+" URL is "+this.endpoint);
     }
 
     public listen(type: ChannelType, name: string, eventName: string): Observable<any> {
@@ -134,9 +183,6 @@ export class PushService {
     }
 
     private checkCOM(){
-        //console.log("CHECK COM");
-        console.log("ACTUAL    "+this.actualRND);
-        console.log("LAST    "+this.lastRND);
             if (this.lastRND!=this.actualRND){
                 this.lastRNDTime= Date.now();
               
@@ -183,7 +229,7 @@ export class PushService {
 
       
       getData(){
-        this.http.get(this.endpoint+'/getdata/')
+        this.http.get('http://'+this.endpoint+'/api/auth/getdata/')
         .subscribe(data => {
            // console.log(data);
             let newdrumsdata=[];
@@ -206,6 +252,7 @@ export class PushService {
             })
             this.drumsdata=newdrumsdata;
             this.tanksdata = data['tanks'];
+           
             this.alarms =data['alarms'];
             this.productsdata = data['products'];
             this.controlsdata = data['controls'];
@@ -214,6 +261,10 @@ export class PushService {
             this.controlslist = data['controlslist'];
             this.actualRND = data['rnd'];
         })
+        const headers = new HttpHeaders({
+            'Authorization': "Bearer "+this.token
+          });
+
       }
      
 }

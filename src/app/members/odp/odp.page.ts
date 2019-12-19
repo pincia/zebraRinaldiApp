@@ -34,7 +34,13 @@ export class OdpPage implements OnInit {
     this.route.paramMap
     .subscribe((queryParams: ParamMap) => {
        this.id_odp = queryParams.get('idodp');     
-       this.drum = pushservice.drumsdata[0];
+       pushservice.drumsdata.forEach((drum, index)=>{
+         console.log(drum);
+        console.log("Confronto "+this.id_odp+" con "+drum+" index "+index);
+         if (drum.ID_ODP==this.id_odp){
+           this.drum=drum;
+         }
+       });
        console.log(this.id_odp);
        console.log(this.drum);
     });

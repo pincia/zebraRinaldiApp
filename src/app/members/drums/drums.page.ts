@@ -29,13 +29,14 @@ export class DrumsPage implements OnInit {
 
 getData(){
      this.drumdata = this.pushservice.drumsdata;
+     //console.log(this.drumdata);
 }
 getHeaderStyle() {
   return { 'background': this.primaryColor }
 };
 goToODP(event, drum) {
   console.log("GOTO ODP "+drum['ID_ODP']);
- this.router.navigate(['/odp',1900007/* drum['ID_ODP']*/]);
+ this.router.navigate(['/odp', drum['ID_ODP']]);
  }
 
 

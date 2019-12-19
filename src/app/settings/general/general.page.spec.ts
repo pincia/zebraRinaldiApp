@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AutoLogoutPage } from './auto-logout.page';
+import { GeneralPage } from './general.page';
 
-describe('AutoLogoutPage', () => {
-  let component: AutoLogoutPage;
-  let fixture: ComponentFixture<AutoLogoutPage>;
+describe('GeneralPage', () => {
+  let component: GeneralPage;
+  let fixture: ComponentFixture<GeneralPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AutoLogoutPage ],
+      declarations: [ GeneralPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AutoLogoutPage);
+    fixture = TestBed.createComponent(GeneralPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

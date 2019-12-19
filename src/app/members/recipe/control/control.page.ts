@@ -42,7 +42,7 @@ export class ControlPage implements OnInit {
   public odp: any;
   public passo: any
   public showSelection:any;
-  public host = "c7183545.ngrok.io";
+  public host = "5dd8db89.ngrok.io";
   cameraOptions: CameraOptions = {
     quality: 100,
     sourceType: this.camera.PictureSourceType.CAMERA,

@@ -6,7 +6,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { DashboardPage } from './dashboard.page';
-import { AutoLogoutComponentModule } from 'src/app/components/auto-logout/auto-logout.module';
 
 
 const routes: Routes = [
@@ -21,7 +20,6 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    AutoLogoutComponentModule,
     RouterModule.forChild(routes)
   ],
   

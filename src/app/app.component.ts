@@ -10,6 +10,12 @@ import { Vibration } from '@ionic-native/vibration/ngx';
 import { Router } from '@angular/router';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { NativeAudio } from '@ionic-native/native-audio/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { Device } from '@ionic-native/device/ngx';
+import { Storage } from '@ionic/storage';
+
+ss
+
 //import { AnyTxtRecord } from 'dns';
 //import { Push, PushObject, PushOptions } from '@ionic-native/push/ngx';
 //import { environment } from 'src/environments/environment';
@@ -25,9 +31,12 @@ export class AppComponent {
   private interval:any;
   pages: Array<{ title: string, component: any, active: boolean, icon: string }>;
   constructor(
+    private screenOrientation: ScreenOrientation,
     private oneSignal: OneSignal,
+    private device:Device,
     private vibration:Vibration,
     private nativeAudio: NativeAudio,
+    private storage:Storage,
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
@@ -40,8 +49,8 @@ export class AppComponent {
   ) {
     this.vibration_active=false;
     this.oneSignal.startInit('f5cf95c2-43d3-4e31-b83d-75a2a5df62d4', '294203629540');
-
-  this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.None);
     
     this.oneSignal.handleNotificationReceived().subscribe((data) => {
      // do something when notification is 
@@ -57,16 +66,26 @@ export class AppComponent {
      this.vibrate();
       
     });
+    platform.ready().then(()=>{
+      console.log("DEVICE INFO")
+     console.log(device.manufacturer)
+    if (device.manufacturer.includes('Zebra')){
+        storage.set("DEVICE_TYPE",1)
+        
+    }
+    if (device.manufacturer.includes('Newl')){
+      storage.set("DEVICE_TYPE",2)
+    
+    }
+    })
    
-
-
     this.oneSignal.handleNotificationOpened().subscribe((data) => {
       /*
       let type = data.payload['additionalData']['type'] ;
       let machine = data.payload['additionalData']['machine'] ;
       let message = data.payload['additionalData']['message'] ;*/
       // do something when a notification is opened
-      console.log("HANDLED OPEN PUSHHHHH");
+  
 //console.log(data.payload);
       this.presentAlert("ACTION","Alarm Recived");
      
@@ -84,9 +103,7 @@ vibrate(){
   initializeApp() {
     this.platform.ready().then(() => {
        
-      this.nativeAudio.preloadSimple('test', 'assets/sounds/woop.mp3');
-      this.nativeAudio.preloadSimple('test2', 'assets/sounds/info.wav');
-      
+    
       this.authenticationService.authenticationState.subscribe(state => {
      
         if (state) {
@@ -98,7 +115,9 @@ vibrate(){
       });
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      console.log("ENDI INIT");
+      this.nativeAudio.preloadSimple('test', 'assets/sounds/woop.mp3');
+      this.nativeAudio.preloadSimple('test2', 'assets/sounds/info.wav');
+      
     });
     
   }

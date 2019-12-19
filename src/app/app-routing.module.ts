@@ -10,8 +10,15 @@ const routes: Routes = [
     // { path: '',  canActivate: [AuthGuard], loadChildren: './menu/menu.module#MenuPageModule'},
     { path: 'odp/:idodp',  canActivate: [AuthGuard], loadChildren: './members/odp/odp.module#OdpPageModule' },
     {path: 'storage', loadChildren: './members/storage/storage.module#StoragePageModule'},
-    {path: 'drums', loadChildren: './members/drums/drums.module#DrumsPageModule'},
+    {path: 'drums', canActivate: [AuthGuard], loadChildren: './members/drums/drums.module#DrumsPageModule'},
+    { path: 'settings',  loadChildren: './members/settings/settings.module#SettingsPageModule' },
     {path: 'modal', loadChildren: './modals/modal/modal.module#ModalPageModule'},
+    { path: 'feedbacks', loadChildren: './settings/feedbacks/feedbacks.module#FeedbacksPageModule' },
+    { path: 'notifiche', loadChildren: './settings/notifiche/notifiche.module#NotifichePageModule' },
+    { path: 'registartion', loadChildren: './public/registartion/registartion.module#RegistartionPageModule' },
+  { path: 'forgotpassword', loadChildren: './public/forgotpassword/forgotpassword.module#ForgotpasswordPageModule' },
+
+    { path: 'general', loadChildren: './settings/general/general.module#GeneralPageModule' },
     {path: 'members/tank', loadChildren: './members/tank/tank.module#TankPageModule'},
     {path: 'members/tank/:id', loadChildren: './members/tank/tank.module#TankPageModule'},
     {path: 'carico-modal', loadChildren: './modals/carico-modal/carico-modal.module#CaricoModalPageModule'},
@@ -26,6 +33,10 @@ const routes: Routes = [
     },
     {path: '', loadChildren: './menu/menu.module#MenuPageModule'},
   { path: 'home-menu-popover-page', loadChildren: './popover/home-menu-popover-page/home-menu-popover-page.module#HomeMenuPopoverPagePageModule' },
+  
+  
+
+  
   ];
 @NgModule({
   imports: [

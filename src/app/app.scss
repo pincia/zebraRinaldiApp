@@ -1109,8 +1109,8 @@ margin: 0px !important;
 }
 
 .logo {
-width: 150px;
-padding: 30px 0px !important; 
+width: 80vw;
+padding: 0.5em 0em !important; 
 margin: 0 auto;
 display: block;
 }
@@ -1160,11 +1160,22 @@ border-radius: 5px;
   margin-bottom: 20px;
 }
 .forgotPassword {
+  display: inline-block;
 text-align: right;
-font-size: 14px;
+font-size: 12px;
 font-weight: 600;
 margin-bottom: 5%;
+width:50%;
 }
+.registerUser {
+  display: inline-block;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 5%;
+  width:50%;
+  }
+
 .item-inner {
 border: none !important;
 padding: 0px !important;
@@ -1414,7 +1425,7 @@ ion-segment{
 .profile-inner-item{
     color: #8e8e93;
     float: right;
-    font-size: 16px;
+    font-size: 20px;
 }
 .profile-title{
     display: inline-block !important;

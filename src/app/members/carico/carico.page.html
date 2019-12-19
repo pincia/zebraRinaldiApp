@@ -1,14 +1,19 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>CARICO PRODOTTO </ion-title>
-    <ion-buttons slot="start">
-        <ion-back-button></ion-back-button>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+<ion-back-button></ion-back-button>
       </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+      <ion-title >CARICO PRODOTTO</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
 
 <ion-content padding >
-    <ion-grid padding>
+    <ion-grid padding style="padding-top:0;">
+        <div style="text-align: center;
+        font-weight: bold;">
+          <p>{{message}}</p>
+        </div>
         <ion-row [style.display]="displayDeposito" class="custom-row" padding>
           <ion-col class="title">DEPOSITO</ion-col>
           <ion-col>{{tank}}</ion-col>

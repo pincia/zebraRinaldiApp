@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from './../../services/authentication.service';
 import { Router } from '@angular/router';
 import { Navigation } from 'selenium-webdriver';
-import { AutoLogoutComponent } from '../../components/auto-logout/auto-logout.component';
 import { ModalController, NavController, PopoverController, NavParams } from '@ionic/angular';
 import { DeviceFeedback } from '@ionic-native/device-feedback/ngx';
 import { DataService } from 'src/app/services/data.service';
@@ -14,7 +13,9 @@ import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/na
 import { ViewController } from '@ionic/core';
 import { HomeMenuPopoverPagePageModule } from 'src/app/popover/home-menu-popover-page/home-menu-popover-page.module';
 import { HomeMenuPopoverPagePage } from 'src/app/popover/home-menu-popover-page/home-menu-popover-page.page';
-
+import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { AutoLogoutService } from 'src/app/services/auto-logout.service';
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -22,8 +23,8 @@ import { HomeMenuPopoverPagePage } from 'src/app/popover/home-menu-popover-page/
 })
 export class DashboardPage implements OnInit{
   cssClass: string;
-  primaryColor='#44bbec';
-  secondryColor = '#0163fc';
+  primaryColor= '#64db00';
+  secondryColor ='#6ba000';
   fullWhiteLogo = "assets/images/logo.png";
   options: NativeTransitionOptions = {
     direction: "right",
@@ -40,7 +41,10 @@ export class DashboardPage implements OnInit{
   user:string;
   loginData:string[];
   navigation:Navigation;
-  constructor(private deviceFeedback: DeviceFeedback,
+ public comandi_vocali:boolean;
+  constructor(public storage:Storage,
+    public autoLogoutService:AutoLogoutService,
+    private deviceFeedback: DeviceFeedback,
     public popoverController: PopoverController,
      private tts: TextToSpeech,
      private nativePageTransitions: NativePageTransitions,
@@ -50,20 +54,25 @@ export class DashboardPage implements OnInit{
       private platform:Platform,
       private authService: AuthenticationService,
       pusher: PushService,
-      private modalController:ModalController,  
+      private modalController:ModalController, 
       router:Router) { 
     this.router=router;
  
-    authService.storage.get('auth-token').then( res=>{ this.loginData= res.split(' ')
-    this.user = this.loginData[0];
-
-  
-  });
 
   }
- 
+
+  ionViewWillEnter(){
+    console.log("ionViewWillEnter")
+    this.storage.get("comandi_vocali").then(res => {
+      if (res) {
+         this.comandi_vocali=res;      }
+      else{
+        this.comandi_vocali=false;
+      } 
+    });
+  }
+
   ngOnInit() {
-    console.log("URL    "+this.router.url);
     this.speechRecognition.hasPermission()
       .then((hasPermission: boolean) => {
 
@@ -136,6 +145,7 @@ export class DashboardPage implements OnInit{
           this.router.navigate(['/carico'])
           return;
         } 
+        
         this.tts.speak({
           text: "COMANDO NON RICONOSCIUTO",
           locale: 'it-IT',
@@ -152,21 +162,21 @@ export class DashboardPage implements OnInit{
 
   getstyle() {
     return {
-      background:
-        "linear-gradient(" + this.primaryColor + "," + this.secondryColor + ")"
+      background:"linear-gradient(var(--ion-color-primary),var(--ion-color-secondary))"
+       // "linear-gradient('var(--ion-color-primary),transparent)','var(--ion-color-secondry),transparent)')"
     };
   }
   getProgresstyle() {
     return {
       background:
-        "linear-gradient(to right," + this.secondryColor + "," + this.primaryColor + ")"
+        "linear-gradient(to right,var(--ion-color-secondary),var(--ion-color-primary))"
     };
   }
   getHeaderStyle() {
-    return { background: this.primaryColor };
+    return { background: "var(--ion-color-primary)" };
   }
   getFontstyle() {
-    return { color: this.secondryColor };
+    return { color: "var(--ion-color-secondary)"};
   }
 
  
@@ -176,40 +186,20 @@ export class DashboardPage implements OnInit{
       event: ev,
       translucent: true
     });
+    popover.onDidDismiss().then(data => {
+      if (data.data == "profile") {
+        this.router.navigate(['profile'])
+      } else if (data.data == "settings") {
+        this.router.navigate(['settings']);
+       
+      } else if (data.data == "logout") {
+        this.authService.logout();
+        }
+      }
+    );
     return await popover.present();
   }
 
 
 
-}
-
-
-export class HomePopoverPage {
-  public employee;
-  public roleId: any;
-  public role: any;
-
-  constructor(
-    public viewCtrl: ViewController,
-    public navParams: NavParams,
-    public navCtrl: NavController
-  ) {
-    this.role = localStorage.getItem("role");
-    this.roleId = localStorage.getItem("role_id");
-  }
-
-  openMyprofile() {
-    var action = "profile";
-  //  this.viewCtrl.dismiss(action);
-  }
-
-  openSettings() {
-    var action = "setting";
-    //this.viewCtrl.dismiss(action);
-  }
-
-  logout() {
-    var action = "logout";
-  // this.viewCtrl.dismiss(action);
-  }
 }

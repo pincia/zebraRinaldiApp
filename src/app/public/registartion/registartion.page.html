@@ -1,0 +1,50 @@
+<ion-content no-bounce padding>
+  <div class="login-logo">
+    <img src="/assets/images/logo.svg" class="logo slide-in">
+    <h2 class="login" style="margin-top: 4%!important;"> REGISTRAZIONE</h2>
+    <form (ngSubmit)="register()" [formGroup]="loginForm">
+      <ion-list>
+        <ion-item class="loginTextBox">
+          <ion-input style="height: 25px!important;" [(ngModel)]="user.nome" type="text" class="loginInput"
+            placeholder="Nome" formControlName="nome" required></ion-input>
+        </ion-item>
+        <ion-item class="loginTextBox">
+          <ion-input style="height: 25px!important;" [(ngModel)]="user.cognome" type="text" class="loginInput"
+            placeholder="Cognome" formControlName="cognome" required></ion-input>
+        </ion-item>
+        <ion-item class="loginTextBox">
+          <ion-input style="height: 25px!important;" [(ngModel)]="user.utente" type="text" class="loginInput"
+            placeholder="Utente " formControlName="utente" required></ion-input>
+        </ion-item>
+        <ion-item class="loginTextBox">
+          <ion-input style="height: 25px!important;" [(ngModel)]="user.email" type="text" class="loginInput"
+            placeholder="Email" formControlName="email" required></ion-input>
+        </ion-item>
+        <ion-item class="loginTextBox">
+          <ion-input style="height: 25px!important;" [(ngModel)]="user.password" type="password" class="loginInput"
+            placeholder="Password" formControlName="password" required></ion-input>
+        </ion-item>
+        <ion-item class="loginTextBox">
+          <ion-input style="height: 25px!important;" type="text" class="loginInput" placeholder="Confirm Password"
+            formControlName="confirm" required></ion-input>
+        </ion-item>
+        <ion-item class="loginTextBox">
+          <ion-input style="height: 25px!important;" [(ngModel)]="user.codice_impianto" type="text" class="loginInput"
+            placeholder="Codice Impianto" formControlName="codice_impianto" required></ion-input>
+        </ion-item>
+        <ion-item class="loginTextBox">
+          <ion-input style="height: 25px!important;" [(ngModel)]="user.codice_registrazione" type="text"
+            class="loginInput" placeholder="Codice Registrazione" formControlName="codice_registrazione" required>
+          </ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button type="submit" expand="block">Register</ion-button>
+
+      <h3 class="have-account" (click)="openLogin()">Sei già registrato? <span class="log" [routerLink]="''"
+          routerDirection="forward">Login</span></h3>
+    </form>
+  </div>
+  <ion-fab vertical="center" horizontal="center" slot="fixed" >
+      <ion-spinner [style.display]="displaySpinner" name="lines"></ion-spinner>
+    </ion-fab>
+</ion-content>

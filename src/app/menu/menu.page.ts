@@ -12,30 +12,41 @@ export class MenuPage implements OnInit {
   selectedPath = '';
   primaryColor: any;
   secondryColor: any;
+
   pages = [
     {
-      title: 'Home',
-      url: '/menu/dashboard'
+      title: 'Dashboard',
+      url: '/members/dashboard',
+      icon: 'home'
     },
     {
-      title: 'Profilo',
-      url: '/menu/profile'
+      title: 'Prodotti',
+      url: '/members/recipe',
+      icon: 'flask'
+    },
+    {
+      title: 'Depositi',
+      url: '/storage',
+      icon: 'logo-buffer'
     }
- 
   ];
+ 
  
   constructor(private router: Router) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.selectedPath = event.url;
     });
+    this.primaryColor='#0163fc';
+    this.secondryColor = '#44bbec';
+
+
+    
   }
 
   getstyle() {
-    this.primaryColor = localStorage.getItem("primary_color");
-    this.secondryColor = localStorage.getItem("secondry_color");
+    
     return {
-      background:
-        "linear-gradient(" + this.primaryColor + "," + this.secondryColor + ")"
+      background:"linear-gradient(var(--ion-color-primary),var(--ion-color-secondary))"
     };
   };
   openPage(page) {
